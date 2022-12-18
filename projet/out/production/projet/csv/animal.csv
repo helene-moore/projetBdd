@@ -1,0 +1,17 @@
+type,nom,niveau,age,effet
+Dragon,Yro,90,1,feu
+Dragon,Mayrug,37,10,feu
+Dragon,Chatyss,99,1,feu
+Dragon,Silled,88,4,feu
+Griffon,Chiron,65,8,vent
+Griffon,BigBird,15,7,vent
+Griffon,GrimClaw,8,2,vent
+Griffon,Teles,49,10,vent
+Cerbère,Vomorus,45,7,sang
+Cerbère,Xacutha,63,6,sang
+Cerbère,Gatros,36,10,sang
+Cerbère,Hades,41,10,sang
+Basilic,Oja,53,10,poison
+Basilic,Yacaz,41,8,poison
+Basilic,Segdran,9,3,poison
+Basilic,Igmarag,65,9,poison

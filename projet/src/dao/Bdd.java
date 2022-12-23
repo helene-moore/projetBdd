@@ -39,7 +39,7 @@ public class Bdd {
         for (Classe cl : Data.lst_classe) {
             bdd.run("CREATE (cla:Classe {nom:'" + cl.getNom() + "'})");
         }
-        //evenement
+        //évenement
         for (EvenementJeu e : Data.lst_event) {
             bdd.run("CREATE (e:Event {nom:'" + e.getNom() + "', dateDebut:'" + e.getDateDebut() + "', dateFin:'" + e.getDateFin()+ "', lieu:'" + e.getLieu() + " '})");
         }
@@ -70,7 +70,7 @@ public class Bdd {
          **/
         System.out.println("debut link user-guilde");
         Random rand = new Random();
-        int limite_user = 100;
+        int limite_user = 500;
         int limite_guilde = 50;
         int rdm_number = rand.nextInt(limite_user);
 

@@ -127,26 +127,31 @@ public class Applic {
             totalJoueur += 1;
             String nomClasse = String.valueOf(rec.get("c").get("nom"));
             nomClasse = nomClasse.replace("\"", "");
-            if (nomClasse.equals("mage")) {
-                totalMage += 1;
-                totalGuerrier += 0;
-                totalSoigneur += 0;
-                totalAssassin += 0;
-            } else if (nomClasse.equals("guerrier")) {
-                totalGuerrier += 1;
-                totalMage += 0;
-                totalSoigneur += 0;
-                totalAssassin += 0;
-            } else if (nomClasse.equals("soigneur")) {
-                totalSoigneur += 1;
-                totalMage += 0;
-                totalGuerrier += 0;
-                totalAssassin += 0;
-            } else if (nomClasse.equals("assassin")) {
-                totalAssassin += 1;
-                totalGuerrier += 0;
-                totalSoigneur += 0;
-                totalMage += 0;
+            switch (nomClasse) {
+                case "mage" -> {
+                    totalMage += 1;
+                    totalGuerrier += 0;
+                    totalSoigneur += 0;
+                    totalAssassin += 0;
+                }
+                case "guerrier" -> {
+                    totalGuerrier += 1;
+                    totalMage += 0;
+                    totalSoigneur += 0;
+                    totalAssassin += 0;
+                }
+                case "soigneur" -> {
+                    totalSoigneur += 1;
+                    totalMage += 0;
+                    totalGuerrier += 0;
+                    totalAssassin += 0;
+                }
+                case "assassin" -> {
+                    totalAssassin += 1;
+                    totalGuerrier += 0;
+                    totalSoigneur += 0;
+                    totalMage += 0;
+                }
             }
         }
         System.out.println("Total de joueurs : " + totalJoueur + " joueurs. Sur ces joueurs, elle contient:");
@@ -173,26 +178,31 @@ public class Applic {
             Record rec = res.next();
             String nomClasse = String.valueOf(rec.get("c").get("nom"));
             nomClasse = nomClasse.replace("\"", "");
-            if (nomClasse.equals("mage")) {
-                totalMage += 1;
-                totalGuerrier += 0;
-                totalSoigneur += 0;
-                totalAssassin += 0;
-            } else if (nomClasse.equals("guerrier")) {
-                totalGuerrier += 1;
-                totalMage += 0;
-                totalSoigneur += 0;
-                totalAssassin += 0;
-            } else if (nomClasse.equals("soigneur")) {
-                totalSoigneur += 1;
-                totalMage += 0;
-                totalGuerrier += 0;
-                totalAssassin += 0;
-            } else if (nomClasse.equals("assassin")) {
-                totalAssassin += 1;
-                totalGuerrier += 0;
-                totalSoigneur += 0;
-                totalMage += 0;
+            switch (nomClasse) {
+                case "mage" -> {
+                    totalMage += 1;
+                    totalGuerrier += 0;
+                    totalSoigneur += 0;
+                    totalAssassin += 0;
+                }
+                case "guerrier" -> {
+                    totalGuerrier += 1;
+                    totalMage += 0;
+                    totalSoigneur += 0;
+                    totalAssassin += 0;
+                }
+                case "soigneur" -> {
+                    totalSoigneur += 1;
+                    totalMage += 0;
+                    totalGuerrier += 0;
+                    totalAssassin += 0;
+                }
+                case "assassin" -> {
+                    totalAssassin += 1;
+                    totalGuerrier += 0;
+                    totalSoigneur += 0;
+                    totalMage += 0;
+                }
             }
         }
 
@@ -220,7 +230,7 @@ public class Applic {
         EvenementJeu eventSpecialistes = new EvenementJeu("Autour des lacs",dateDebut,dateFin,"Grottes Macabres");
         session.run("CREATE (e:Event {nom:'" + eventSpecialistes.getNom() + "', dateDebut:'" + eventSpecialistes.getDateDebut() + "', dateFin:'" + eventSpecialistes.getDateFin()+ "', lieu:'" + eventSpecialistes.getLieu() + " '})");
         //4. Inscription à l'évènement
-        Result resEvent = session.run("MATCH (g:Guilde) <- [ :APPARTIENT] -(u:Utilisateur) - [ :EST] -> (c:Classe {nom:'"+trouverMinimum(totalParClasse)+"'}) return g, u, c");
+        Result resEvent = session.run("MATCH (g:Guilde) <- [ :APPARTIENT] -(u:Utilisateur) - [ :EST] -> (c:Classe {nom:'"+trouverMinimum(totalParClasse)+"'}) WHERE u.niveau >= 50 return g, u, c");
         while (resEvent.hasNext()){
             Record rec = resEvent.next();
             String nomGuilde = String.valueOf(rec.get("g").get("nom"));
@@ -265,6 +275,12 @@ public class Applic {
         /*
         Fonction permettant de calculer le pourcentage de joueur dans la classe
         */
-        return (totalClasse * 100) / totalJoueurs;
+        float result = 0;
+        try {
+            result = (totalClasse * 100) / totalJoueurs;
+        } catch (ArithmeticException erreur){
+            System.out.println("Le calcul n'est pas possible car le nombre de joueur ne peut être égal à 0");
+        }
+        return result;
     }
 }
